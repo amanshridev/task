@@ -1,11 +1,23 @@
-import Button from "../Button";
+import React, { useState } from "react";
 
-const Search = () => {
+const Search = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (event) => {
+    if (event.key === "Enter") {
+      onSearch(searchTerm);
+    }
+  };
+
   return (
-    <div className="search-box">
-      <input type="text" placeholder="Search..." className="search-bar" />
-      <Button />
-    </div>
+    <input
+      className="search-box"
+      type="search"
+      value={searchTerm}
+      onChange={(event) => setSearchTerm(event.target.value)}
+      onKeyPress={handleSearch}
+      placeholder="Search for a country"
+    />
   );
 };
 
