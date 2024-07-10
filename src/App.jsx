@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Search from "./components/Search";
 import Table from "./components/Table";
 
@@ -9,22 +9,6 @@ const App = () => {
   const [limit, setLimit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const searchInputRef = useRef(null);
-
-  useEffect(() => {
-    const handleKeyboardShortcut = (event) => {
-      if ((event.ctrlKey || event.metaKey) && event.key === "/") {
-        event.preventDefault();
-        searchInputRef.current && searchInputRef.current.focus();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyboardShortcut);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyboardShortcut);
-    };
-  }, [searchInputRef]);
 
   const handleSearch = async (searchTerm) => {
     setLoading(true);
@@ -60,7 +44,7 @@ const App = () => {
 
   return (
     <div className="main-section">
-      <Search ref={searchInputRef} onSearch={handleSearch} />
+      <Search onSearch={handleSearch} />
       {loading ? (
         <div>Loading...</div>
       ) : (
